@@ -1,35 +1,38 @@
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class LinkedListNew<T> implements ListNew<T>{
+public class LinkedListNew<T> implements ListNew<T> {
     private int size = 0;
     private Node<T> first;
     private Node<T> last;
-    LinkedListNew(T value){
+
+    LinkedListNew(T value) {
         this.first = this.last = new Node<T>(value);
         size = 1;
 
     }
-    LinkedListNew(){
+
+    LinkedListNew() {
         last = first = null;
     }
-    public boolean add(T value, int index){
-        if(index > size || index < 0){
+
+    public boolean add(T value, int index) {
+        if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
         Node<T> current = first;
         Node<T> newElement = new Node<T>(value);
-        if(index==0){
+        if (index == 0) {
             newElement.setNext(current);
             first = newElement;
             size++;
             return true;
-        }else if(index==size){
+        } else if (index == size) {
             add(value);
             newElement = null;
             return true;
         }
-        for(int i = 0; i < index-1; i++){
+        for (int i = 0; i < index - 1; i++) {
             current = current.getNext();
         }
         newElement.setNext(current.getNext());
@@ -38,38 +41,40 @@ public class LinkedListNew<T> implements ListNew<T>{
         return true;
 
     }
-    public boolean add(T value){
+
+    public boolean add(T value) {
         Node<T> newElement = new Node<T>(value);
-        if(first==null){
+        if (first == null) {
             first = newElement;
             last = newElement;
             size = 1;
-        }else{
+        } else {
             last.setNext(newElement);
             last = newElement;
             size++;
         }
         return true;
     }
-    public T remove(){
-        if(first==null){
+
+    public T remove() {
+        if (first == null) {
             throw new NoSuchElementException();
-        }else{
+        } else {
             Node<T> current = first;
-            if(current.getNext()!=null){
-                if(current.getNext().getNext()!=null){
-                    for(;current.getNext().getNext()!=null;){
+            if (current.getNext() != null) {
+                if (current.getNext().getNext() != null) {
+                    for (; current.getNext().getNext() != null; ) {
                         current = current.getNext();
                     }
                     last = current;
                     current = current.getNext();
                     last.setNext(null);
 
-                }else{
+                } else {
                     first.setNext(null);
                     last = first;
                 }
-            }else{
+            } else {
                 first = null;
                 last = null;
             }
@@ -77,18 +82,19 @@ public class LinkedListNew<T> implements ListNew<T>{
             return current.getValue();
         }
     }
-    public T remove(int index){
+
+    public T remove(int index) {
         Node<T> current = first;
-        if(index>=size||index < 0){
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException();
-        }else if(index==0){
+        } else if (index == 0) {
             first = current.getNext();
             size--;
             return current.getValue();
-        }else if(index==size-1){
+        } else if (index == size - 1) {
             return remove();
-        }else{
-            for(int i = 0; i < index-1; i++){
+        } else {
+            for (int i = 0; i < index - 1; i++) {
                 current = current.getNext();
             }
             Node<T> returnElement = current.getNext();
@@ -97,34 +103,37 @@ public class LinkedListNew<T> implements ListNew<T>{
             return returnElement.getValue();
         }
     }
-    public T get(int index){
+
+    public T get(int index) {
         Node<T> current = first;
-        if(index >= size||index < 0){
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException();
-        }else if(index==size-1){
+        } else if (index == size - 1) {
             return getLast();
-        }
-        else{
-            for(int i = 0; i < index; i++){
+        } else {
+            for (int i = 0; i < index; i++) {
                 current = current.getNext();
             }
             return current.getValue();
         }
     }
-    public T getLast(){
-        if(last!=null){
+
+    public T getLast() {
+        if (last != null) {
             return last.getValue();
-        }else{
+        } else {
             throw new NoSuchElementException();
         }
     }
-    public T getFirst(){
-        if(first!=null){
+
+    public T getFirst() {
+        if (first != null) {
             return first.getValue();
-        }else{
+        } else {
             throw new NoSuchElementException();
         }
     }
+
     public int getSize() {
         return size;
     }
@@ -133,19 +142,19 @@ public class LinkedListNew<T> implements ListNew<T>{
     public String toString() {
         String out = new String("[");
         Node<T> current = first;
-        for(int i = 0; i < size-1;i++){
+        for (int i = 0; i < size - 1; i++) {
             out += current.getValue().toString() + ",";
             current = current.getNext();
         }
         out += current.getValue().toString();
-        return out+"]";
+        return out + "]";
     }
 
     @Override
     public boolean isEmpty() {
-        if(first==null){
+        if (first == null) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -165,7 +174,7 @@ public class LinkedListNew<T> implements ListNew<T>{
         private T value;
         private Node next;
 
-        Node(T value){
+        Node(T value) {
             this.value = value;
             this.next = null;
         }

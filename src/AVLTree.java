@@ -33,6 +33,7 @@ public class AVLTree {
         }
         root = balance(root);
     }
+
     private Node add(int value, Node r) {
         if (r == null) {
             r = new Node(value);
@@ -45,8 +46,9 @@ public class AVLTree {
         return r;
 
     }
-    public void remove(int value){
-        if(find(value)){
+
+    public void remove(int value) {
+        if (find(value)) {
 
         }
     }
@@ -70,7 +72,7 @@ public class AVLTree {
                 } else if (maxDepthRL > maxDepthRR) {
                     r = bigLeftRotation(r);
                 }
-            } else if (r.left != null ) {
+            } else if (r.left != null) {
                 maxDepthLR = maxDepth(r.left.right);
                 maxDepthLL = maxDepth(r.left.left);
                 if (maxDepthLR <= maxDepthLL) {
@@ -131,7 +133,6 @@ public class AVLTree {
             return Math.max(maxDepth(r.left), maxDepth(r.right)) + 1;
         }
     }
-
 
 
     public boolean find(int value) {

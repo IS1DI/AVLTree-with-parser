@@ -15,7 +15,7 @@ public class Node {
 
     private String recursiveToString(Node n, String o) {
         if (n != null) {
-            return "\n"+o+"└──" + n.value + (n.left != null ? recursiveToString(n.left,  o + "│  ") : "") + (n.right != null ? recursiveToString(n.right, o+ "│  " ) : "");
+            return "\n" + o + "└──" + n.value + (n.left != null ? recursiveToString(n.left, o + "│  ") : "") + (n.right != null ? recursiveToString(n.right, o + "│  ") : "");
         } else {
             return "";
         }

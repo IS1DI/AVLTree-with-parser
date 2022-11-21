@@ -24,7 +24,7 @@ public class Parser {
                 i = seq - 1;
             } else {
                 System.out.printf("%s^\n", " ".repeat(exp.indexOf(expr[i])));
-                System.out.printf("Некорректный ввод после символа %d\n", exp.indexOf(expr[i])==0?0:exp.indexOf(expr[i])-1);
+                System.out.printf("Некорректный ввод после символа %d\n", exp.indexOf(expr[i]) == 0 ? 0 : exp.indexOf(expr[i]) - 1);
                 return null;
             }
         }
