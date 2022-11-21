@@ -15,7 +15,6 @@ public class AVLTree {
             add(root.value);
             if (root.left != null) addAll(root.left);
             if (root.right != null) addAll(root.right);
-            this.root = balance(this.root);
         } else {
             throw new NullPointerException();
         }
@@ -25,13 +24,17 @@ public class AVLTree {
         if (root == null) {
             root = new Node(value);
         } else if (!find(value)) {
+
             if (root.value > value) {
                 root.left = add(value, root.left);
+
             } else {
                 root.right = add(value, root.right);
+
             }
         }
         root = balance(root);
+
     }
 
     private Node add(int value, Node r) {
@@ -48,9 +51,55 @@ public class AVLTree {
     }
 
     public void remove(int value) {
-        if (find(value)) {
-
+        if(root==null){
+            return;
+        }else if(root.value==value){
+            Node temp = root;
+            root = null;
+            addAll(temp.right);
+            addAll(temp.left);
+        }else{
+            Node temp = findParent(value);
+            if(temp==null){
+                return;
+            }else if(temp.left.value==value){
+                Node tmp = temp.left;
+                temp.left = null;
+                addAll(tmp.left);
+                addAll(tmp.right);
+            }else {
+                Node tmp = temp.right;
+                temp.right = null;
+                addAll(tmp.left);
+                addAll(tmp.right);
+            }
         }
+    }
+    private Node findParent(int value){
+        return findParent(value,root);
+    }
+    private Node findParent(int value, Node r){
+        if(r==null){
+            return r;
+        }else if(r.value == value){
+            return r;
+        }else if(r.value> value){
+            if(r.left==null){
+                return null;
+            }else if(r.left.value == value){
+                return r;
+            }else return findParent(value,r.left);
+        }else {
+            if(r.right==null){
+                return null;
+            }else if(r.right.value == value){
+                return r;
+            }else return findParent(value,r.right);
+        }
+    }
+
+    private boolean isLeaf(Node r){
+        return r!=null&&r.left==null&&r.right==null?true:false;
     }
 
     private Node balance(Node r) {
@@ -58,33 +107,35 @@ public class AVLTree {
         else {
             r.left = balance(r.left);
             r.right = balance(r.right);
-        }
-        if (isNeedToBalance(r)) {
-            int maxDepthRR;
-            int maxDepthRL;
-            int maxDepthLR;
-            int maxDepthLL;
-            if (r.right != null) {
-                maxDepthRL = maxDepth(r.right.left);
-                maxDepthRR = maxDepth(r.right.right);
-                if (maxDepthRL <= maxDepthRR) {
-                    r = minLeftRotation(r);
-                } else if (maxDepthRL > maxDepthRR) {
-                    r = bigLeftRotation(r);
+
+            if (isNeedToBalance(r)) {
+                int maxDepthRR;
+                int maxDepthRL;
+                int maxDepthLR;
+                int maxDepthLL;
+                if (r.right != null) {
+                    maxDepthRL = maxDepth(r.right.left);
+                    maxDepthRR = maxDepth(r.right.right);
+                    if (maxDepthRL <= maxDepthRR) {
+                        r = minLeftRotation(r);
+                    } else if (maxDepthRL > maxDepthRR) {
+                        r = bigLeftRotation(r);
+                    }
+                } else if (r.left != null) {
+                    maxDepthLR = maxDepth(r.left.right);
+                    maxDepthLL = maxDepth(r.left.left);
+                    if (maxDepthLR <= maxDepthLL) {
+                        r = minRightRotation(r);
+                    } else if (maxDepthLR > maxDepthLL) {
+                        r = bigRightRotation(r);
+                    }
                 }
-            } else if (r.left != null) {
-                maxDepthLR = maxDepth(r.left.right);
-                maxDepthLL = maxDepth(r.left.left);
-                if (maxDepthLR <= maxDepthLL) {
-                    r = minRightRotation(r);
-                } else if (maxDepthLR > maxDepthLL) {
-                    r = bigRightRotation(r);
-                }
+
+
             }
 
-
+            return r;
         }
-        return r;
     }
 
     private Node minLeftRotation(Node r) {
