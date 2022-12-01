@@ -34,32 +34,6 @@ public class Node {
         if(root.left!=null) BFS(root.left, queue);
         if(root.right!=null) BFS(root.right,queue);
     }
+
+
 }
-//public String toString() {
-//        if (this != null) {
-//            return value + " " + recursiveToString(left, "\n ") + recursiveToString(right, "\n ");
-//        } else return "";
-//    }
-//
-//    private String recursiveToString(Node n, String o) {
-//        if (n != null) {
-//            return o + n.value + (n.left != null ? recursiveToString(n.left, o + " ") : "") + (n.right != null ? recursiveToString(n.right, o + " ") : "");
-//        } else {
-//            return "";
-//        }
-//    }
-//void recPreOrder(){
-//        treatment();
-//        if (left!=null) left.recPreOrder();
-//        if (right!=null) right.recPreOrder();
-//    }
-//    void recInOrder(){
-//        if (left!=null) left.recInOrder();
-//        treatment();
-//        if (right!=null) right.recInOrder();
-//    }
-//    void recPostOrder(){
-//        if (left!=null) left.recPostOrder();
-//        if (right!=null) right.recPostOrder();
-//        treatment();
-//    }

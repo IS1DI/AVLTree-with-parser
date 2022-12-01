@@ -3,8 +3,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+        System.out.println("f Tree: (9 (12 (14 (19) (23)))(12(17(67)(54))(72(76)(50))))");
         Node f = Parser.parse("(9 (12 (14 (19) (23)))(12(17(67)(54))(72(76)(50))))");
         System.out.println(" f Tree:\n"+f);
+        System.out.println("r Tree: (7(4(2)(3(1)))(6(5)(0(10)(11))))");
         Node r = Parser.parse("(7(4(2)(3(1)))(6(5)(0(10)(11))))");
         System.out.println(" r Tree:\n"+r);
         AVLTree Ftree = new AVLTree(f);
@@ -18,6 +20,8 @@ public class Main {
         Rtree.remove(7);
         System.out.println("Avl Tree r + f\n" + Rtree);
         System.out.println("");
+        AVLTree avlTree = new AVLTree(Parser.parse(scan.nextLine()));
+        System.out.println(avlTree);
     }
 }
 //9 12 14 19 23 17 12 67 54 72 76 50

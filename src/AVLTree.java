@@ -9,6 +9,71 @@ public class AVLTree {
             addAll(root);
         }
     }
+    public String printInOrder(){
+        return printInOrderRec(root,0);
+    }
+    private static String printInOrderRec(Node p, int level){
+        if(p!=null){
+            String f = "";
+            f+=printInOrderRec(p.left, level + 1);
+            for(int i = 0; i < level; i++) f+="\t";
+            f+= p.value +"\n" ;
+            f+=printInOrderRec(p.right, level + 1);
+            return f;
+        }
+        return "";
+    }
+    public String printPreOrder(){
+        return printPreOrderRec(root,0);
+    }
+    private static String printPreOrderRec(Node p, int level){
+        if(p!=null){
+            String f = "";
+            for(int i = 0; i < level; i++)f+= "\t";
+            f+= p.value +"\n" ;
+            f+= printPreOrderRec(p.left, level + 1);
+                          // вывод корня поддерева
+            f+=printPreOrderRec(p.right, level + 1);
+            return f;// вывод левого поддерева
+        }
+        return "";
+    }
+    public String printPostOrder(){
+        return printPostOrderRec(root,0);
+    }
+    private static String printPostOrderRec(Node p, int level){
+        if(p!=null){
+            String f = "";
+
+            f+=printPostOrderRec(p.left, level + 1);
+            // вывод корня поддерева
+            f+=printPostOrderRec(p.right, level + 1);
+            for(int i = 0; i < level; i++)f+= "\t";
+            f+= p.value +"\n" ;
+            return f;
+        }
+        return "";
+    }
+    public String printBFS(){
+        return printBFSRec(root);
+    };
+    private static String printBFSRec(Node node){
+        ListNew<Node> queue = new LinkedListNew();
+        String values = "";
+        queue.add(node);
+        while(!queue.isEmpty()){
+            Node tempNode = queue.getFirst();
+            queue.removeFirst();
+            values +=  tempNode.value + " ";
+            if (tempNode.left!=null){
+                queue.add(tempNode.left);
+            }
+            if (tempNode.right!=null){
+                queue.add(tempNode.right);
+            }
+        }
+        return values;
+    }
 
     public void addAll(Node root) {
         if (root != null) {
